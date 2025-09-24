@@ -58,7 +58,7 @@ function App() {
       <div className="relative h-screen w-full">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/Public/main_shot.png)' }}
+          style={{ backgroundImage: 'url(/main_shot.png)' }}
         ></div>
         
         {/* Hero text overlay */}
@@ -162,7 +162,7 @@ function App() {
                   </p>
                 </div>
                 <img 
-                  src="/Public/outexecute.png"
+                  src="/outexecute.png"
                   alt="Out-execute with AI"
                   className="w-full max-w-7xl rounded-lg mt-8"
                 />
