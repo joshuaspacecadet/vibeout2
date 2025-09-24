@@ -39,9 +39,6 @@ body {
   width: 100%;
   padding-top: 160px;
   padding-left: 60px;
-  mix-blend-mode: difference;
-  color: white;
-  filter: contrast(1000%) grayscale(100%);
 }
 
 .circle-text {
@@ -101,6 +98,9 @@ body {
   --r: calc(90deg * var(--rotate-velocity));
   display: inline-block;
   transform: translate(var(--x), var(--y)) rotate(var(--r));
+  color: white;
+  mix-blend-mode: difference;
+  filter: contrast(1000%) grayscale(100%);
 }
 
 .circle-text li span:nth-child(1) {
