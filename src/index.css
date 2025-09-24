@@ -39,6 +39,9 @@ body {
   width: 100%;
   padding-top: 160px;
   padding-left: 60px;
+  mix-blend-mode: difference;
+  color: white;
+  filter: contrast(1000%) grayscale(100%);
 }
 
 .circle-text {
@@ -65,9 +68,7 @@ body {
   white-space: nowrap;
   font-family: 'Instrument Serif', serif;
   font-size: var(--font-size);
-  color: white;
-  mix-blend-mode: difference;
-  filter: contrast(1000%) grayscale(100%);
+  color: inherit;
 }
 
 
