@@ -75,7 +75,7 @@ function App() {
       </div>
 
       {/* Scrolling content */}
-      <div className="relative z-10 px-8 py-0">
+      <div className="relative px-8 py-0">
         <div className="max-w-1xl">
           {/* First Section - AI for Ambitious Individuals */}
           <div className="mt-32 mb-32 ml-[50px]">
