@@ -219,18 +219,22 @@ body {
 }
 
 .journeys .step-chip {
-  padding: 0;
-  border-radius: 0;
-  background: transparent;
-  color: rgba(0,0,0,0.65);
-  transition: color 200ms ease;
+  padding: 4px 10px;
+  border-radius: 9999px;
+  background: rgba(0,0,0,0.06);
+  color: rgba(0,0,0,0.75);
+  border: 1px solid rgba(0,0,0,0.08);
+  transition: background 200ms ease, color 200ms ease, border-color 200ms ease;
 }
 
 .journeys .journey-row:hover .step-chip {
-  color: rgba(0,0,0,0.8);
+  background: rgba(0,0,0,0.08);
+  color: rgba(0,0,0,0.85);
 }
 
 .journeys .journey-row.is-active .step-chip {
+  background: rgba(0,0,0,0.10);
+  border-color: rgba(0,0,0,0.14);
   color: rgba(0,0,0,0.95);
 }
 

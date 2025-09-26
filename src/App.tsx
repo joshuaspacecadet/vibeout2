@@ -215,26 +215,35 @@ function App() {
 export default App;
 
 function JourneyCompact() {
-  const rows = [
-    { title: 'Build', steps: 'prototype • system • shipped' },
-    { title: 'Create', steps: 'concepts • content • campaigns' },
-    { title: 'Operate', steps: 'workflows • automation • scale' },
-    { title: 'Lead', steps: 'vision • adoption • governance' },
-    { title: 'Learn', steps: 'foundations • practice • portfolio' },
+  const rows: Array<{ title: string; steps: string[]; desc: string }> = [
+    { title: 'Build', steps: ['prototype', 'system', 'shipped'], desc: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.' },
+    { title: 'Create', steps: ['concepts', 'content', 'campaigns'], desc: 'Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.' },
+    { title: 'Operate', steps: ['workflows', 'automation', 'scale'], desc: 'Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.' },
+    { title: 'Lead', steps: ['vision', 'adoption', 'governance'], desc: 'Nisi ut aliquip ex ea commodo consequat, dui porta viverra.' },
+    { title: 'Learn', steps: ['foundations', 'practice', 'portfolio'], desc: 'Duis aute irure dolor in reprehenderit in voluptate velit.' },
   ];
 
   return (
-    <ul className="divide-y divide-black/10 rounded-lg border border-black/10">
-      {rows.map((r) => (
-        <li key={r.title} className="flex items-baseline gap-4 px-4 py-3">
-          <span className="w-24 shrink-0 font-space-grotesk font-semibold text-sm text-black">
-            {r.title}
-          </span>
-          <span className="font-space-grotesk text-sm text-black/70">
-            {r.steps}
-          </span>
-        </li>
-      ))}
-    </ul>
+    <div className="journeys">
+      <ul className="divide-y divide-black/10 rounded-lg border border-black/10">
+        {rows.map((r) => (
+          <li key={r.title} className="flex items-start gap-4 px-4 py-3">
+            <span className="w-24 shrink-0 font-space-grotesk font-semibold text-sm text-black">
+              {r.title}
+            </span>
+            <div className="flex-1 min-w-0">
+              <p className="font-space-grotesk text-sm text-black/70 mb-2">
+                {r.desc}
+              </p>
+              <div className="flex flex-wrap items-center gap-2">
+                {r.steps.map((s) => (
+                  <span key={s} className="step-chip">{s}</span>
+                ))}
+              </div>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
   );
 }
