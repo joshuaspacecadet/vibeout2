@@ -88,6 +88,9 @@ function App() {
                 <p className="font-space-grotesk text-lg md:text-xl lg:text-2xl text-black mb-8 leading-relaxed">
                   From the AI-curious to advanced pros.
                 </p>
+                <p className="font-space-grotesk text-base md:text-lg text-black/80 leading-relaxed mb-8">
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+                </p>
 
                 {/** Journeys: animated, interactive rows */}
                 <JourneyRows />
