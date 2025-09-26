@@ -227,19 +227,17 @@ function JourneyCompact() {
     <div className="journeys">
       <ul className="divide-y divide-black/10 rounded-lg border border-black/10">
         {rows.map((r) => (
-          <li key={r.title} className="flex items-start gap-4 px-4 py-3">
-            <span className="w-24 shrink-0 font-space-grotesk font-semibold text-sm text-black">
+          <li key={r.title} className="flex items-center gap-4 px-4 py-2 whitespace-nowrap">
+            <span className="w-20 shrink-0 font-space-grotesk font-semibold text-xs sm:text-sm text-black">
               {r.title}
             </span>
-            <div className="flex-1 min-w-0">
-              <p className="font-space-grotesk text-sm text-black/70 mb-2">
-                {r.desc}
-              </p>
-              <div className="flex flex-wrap items-center gap-2">
-                {r.steps.map((s) => (
-                  <span key={s} className="step-chip">{s}</span>
-                ))}
-              </div>
+            <span className="flex-1 min-w-0 font-space-grotesk text-xs sm:text-sm text-black/70 truncate">
+              {r.desc}
+            </span>
+            <div className="flex items-center gap-1 shrink-0">
+              {r.steps.map((s) => (
+                <span key={s} className="step-chip">{s}</span>
+              ))}
             </div>
           </li>
         ))}
