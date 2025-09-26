@@ -34,13 +34,13 @@ function App() {
       )}
 
       {/* Fixed "Vibe Out" and nav links */}
-      <div className="fixed top-12 left-8 z-60">
+      <div className="fixed top-12 left-8 z-50">
         <h1 className={`font-instrument-serif text-4xl md:text-5xl lg:text-6xl leading-relaxed mb-8 transition-colors duration-300 ${scrolledPastImage ? 'text-black' : 'text-white'}`}>
           <em>Vibe Out</em>
         </h1>
       </div>
 
-      <header className="fixed top-12 right-8 z-60">
+      <header className="fixed top-12 right-8 z-50">
         <div className={`flex flex-col gap-2 text-sm font-space-grotesk text-right transition-colors duration-300 ${scrolledPastImage ? 'text-black' : 'text-white'}`}>
           <button className={`transition-colors text-right ${scrolledPastImage ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
             JOIN
