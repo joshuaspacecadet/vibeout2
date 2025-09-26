@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BookOpen, Clock, Users, MessageSquare, FileText } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { BookOpen, Clock, Users, MessageSquare, FileText, ChevronRight } from 'lucide-react';
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
@@ -34,13 +34,13 @@ function App() {
       )}
 
       {/* Fixed "Vibe Out" and nav links */}
-      <div className="fixed top-12 left-8 z-40">
+      <div className="fixed top-12 left-8 z-60">
         <h1 className={`font-instrument-serif text-4xl md:text-5xl lg:text-6xl leading-relaxed mb-8 transition-colors duration-300 ${scrolledPastImage ? 'text-black' : 'text-white'}`}>
           <em>Vibe Out</em>
         </h1>
       </div>
 
-      <header className="fixed top-12 right-8 z-40">
+      <header className="fixed top-12 right-8 z-60">
         <div className={`flex flex-col gap-2 text-sm font-space-grotesk text-right transition-colors duration-300 ${scrolledPastImage ? 'text-black' : 'text-white'}`}>
           <button className={`transition-colors text-right ${scrolledPastImage ? 'hover:text-gray-600' : 'hover:text-gray-300'}`}>
             JOIN
@@ -58,7 +58,7 @@ function App() {
       <div className="relative h-screen w-full">
         <div 
           className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-          style={{ backgroundImage: 'url(/Public/main_shot.png)' }}
+          style={{ backgroundImage: 'url(/main_shot.png)' }}
         ></div>
         
         {/* Hero text overlay */}
@@ -75,7 +75,7 @@ function App() {
       </div>
 
       {/* Scrolling content */}
-      <div className="relative z-10 px-8 py-0">
+      <div className="relative px-8 py-0">
         <div className="max-w-1xl">
           {/* First Section - AI for Ambitious Individuals */}
           <div className="mt-32 mb-32 ml-[50px]">
@@ -88,33 +88,9 @@ function App() {
                 <p className="font-space-grotesk text-lg md:text-xl lg:text-2xl text-black mb-8 leading-relaxed">
                   From the AI-curious to advanced pros.
                 </p>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Build</h3>
-                    <p className="font-space-grotesk text-black">prototype → system → shipped</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Create</h3>
-                    <p className="font-space-grotesk text-black">concepts → content → campaigns</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Operate</h3>
-                    <p className="font-space-grotesk text-black">workflows → automation → scale</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Lead</h3>
-                    <p className="font-space-grotesk text-black">vision → adoption → governance</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Learn</h3>
-                    <p className="font-space-grotesk text-black">foundations → practice → portfolio</p>
-                  </div>
-                </div>
+
+                {/** Journeys: animated, interactive rows */}
+                <JourneyRows />
               </div>
               
               {/* Right column - Animated circle */}
@@ -162,7 +138,7 @@ function App() {
                   </p>
                 </div>
                 <img 
-                  src="/Public/outexecute.png"
+                  src="/outexecute.png"
                   alt="Out-execute with AI"
                   className="w-full max-w-7xl rounded-lg mt-8"
                 />
@@ -234,3 +210,57 @@ function App() {
 }
 
 export default App;
+
+function JourneyRows() {
+  const items = useMemo(() => ([
+    { title: 'Build', steps: ['prototype', 'system', 'shipped'] },
+    { title: 'Create', steps: ['concepts', 'content', 'campaigns'] },
+    { title: 'Operate', steps: ['workflows', 'automation', 'scale'] },
+    { title: 'Lead', steps: ['vision', 'adoption', 'governance'] },
+    { title: 'Learn', steps: ['foundations', 'practice', 'portfolio'] },
+  ]), []);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % items.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, [items.length]);
+
+  return (
+    <div className="journeys space-y-4">
+      {items.map((item, index) => {
+        const isActive = index === activeIndex;
+        return (
+          <button
+            key={item.title}
+            onMouseEnter={() => setActiveIndex(index)}
+            className={`journey-row group w-full text-left rounded-xl overflow-hidden transition-all duration-500 ${isActive ? 'is-active' : ''}`}
+          >
+            <div className="flex items-center gap-4 px-5 py-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-3">
+                  <h3 className="font-space-grotesk font-semibold text-lg text-black">{item.title}</h3>
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-black/20 to-transparent" />
+                </div>
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-black/70 font-space-grotesk text-sm md:text-base">
+                  {item.steps.map((s, i) => (
+                    <span key={s} className="inline-flex items-center">
+                      <span className="step-chip">{s}</span>
+                      {i < item.steps.length - 1 && (
+                        <ChevronRight className="w-4 h-4 mx-1 opacity-60" />
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="shimmer-indicator" aria-hidden />
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+}
