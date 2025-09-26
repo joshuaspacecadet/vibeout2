@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from 'react';
-import { BookOpen, Clock, Users, MessageSquare, FileText } from 'lucide-react';
+import React, { useEffect, useMemo, useState } from 'react';
+import { BookOpen, Clock, Users, MessageSquare, FileText, ChevronRight } from 'lucide-react';
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
@@ -88,33 +88,9 @@ function App() {
                 <p className="font-space-grotesk text-lg md:text-xl lg:text-2xl text-black mb-8 leading-relaxed">
                   From the AI-curious to advanced pros.
                 </p>
-                
-                <div className="space-y-8">
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Build</h3>
-                    <p className="font-space-grotesk text-black">prototype → system → shipped</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Create</h3>
-                    <p className="font-space-grotesk text-black">concepts → content → campaigns</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Operate</h3>
-                    <p className="font-space-grotesk text-black">workflows → automation → scale</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Lead</h3>
-                    <p className="font-space-grotesk text-black">vision → adoption → governance</p>
-                  </div>
-                  
-                  <div>
-                    <h3 className="font-space-grotesk font-semibold text-lg text-black mb-2">Learn</h3>
-                    <p className="font-space-grotesk text-black">foundations → practice → portfolio</p>
-                  </div>
-                </div>
+
+                {/** Journeys: animated, interactive rows */}
+                <JourneyRows />
               </div>
               
               {/* Right column - Animated circle */}
@@ -234,3 +210,57 @@ function App() {
 }
 
 export default App;
+
+function JourneyRows() {
+  const items = useMemo(() => ([
+    { title: 'Build', steps: ['prototype', 'system', 'shipped'] },
+    { title: 'Create', steps: ['concepts', 'content', 'campaigns'] },
+    { title: 'Operate', steps: ['workflows', 'automation', 'scale'] },
+    { title: 'Lead', steps: ['vision', 'adoption', 'governance'] },
+    { title: 'Learn', steps: ['foundations', 'practice', 'portfolio'] },
+  ]), []);
+
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    const id = setInterval(() => {
+      setActiveIndex((i) => (i + 1) % items.length);
+    }, 2600);
+    return () => clearInterval(id);
+  }, [items.length]);
+
+  return (
+    <div className="journeys space-y-4">
+      {items.map((item, index) => {
+        const isActive = index === activeIndex;
+        return (
+          <button
+            key={item.title}
+            onMouseEnter={() => setActiveIndex(index)}
+            className={`journey-row group w-full text-left rounded-xl overflow-hidden transition-all duration-500 ${isActive ? 'is-active' : ''}`}
+          >
+            <div className="flex items-center gap-4 px-5 py-4">
+              <div className="flex-1 min-w-0">
+                <div className="flex items-baseline gap-3">
+                  <h3 className="font-space-grotesk font-semibold text-lg text-black">{item.title}</h3>
+                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-black/20 to-transparent" />
+                </div>
+                <div className="mt-2 flex flex-wrap items-center gap-2 text-black/70 font-space-grotesk text-sm md:text-base">
+                  {item.steps.map((s, i) => (
+                    <span key={s} className="inline-flex items-center">
+                      <span className="step-chip">{s}</span>
+                      {i < item.steps.length - 1 && (
+                        <ChevronRight className="w-4 h-4 mx-1 opacity-60" />
+                      )}
+                    </span>
+                  ))}
+                </div>
+              </div>
+              <div className="shimmer-indicator" aria-hidden />
+            </div>
+          </button>
+        );
+      })}
+    </div>
+  );
+}

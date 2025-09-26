@@ -196,3 +196,61 @@ body {
   transform-origin: var(--x) 0;
   transition: --delayed-rotate calc(var(--ease-speed) * 14) ease-out;
 }
+
+/* Journeys styles */
+.journeys .journey-row {
+  position: relative;
+  background: radial-gradient(120% 80% at 0% 0%, rgba(0,0,0,0.06), transparent 60%);
+  border: 1px solid rgba(0,0,0,0.06);
+}
+
+.journeys .journey-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(110deg, transparent 0%, rgba(0,0,0,0.04) 30%, transparent 60%);
+  transform: translateX(-60%);
+  transition: transform 700ms ease;
+  pointer-events: none;
+}
+
+.journeys .journey-row.is-active::before,
+.journeys .journey-row:hover::before {
+  transform: translateX(40%);
+}
+
+.journeys .journey-row.is-active {
+  border-color: rgba(0,0,0,0.15);
+  box-shadow: 0 20px 40px -20px rgba(0,0,0,0.15);
+}
+
+.journeys .step-chip {
+  padding: 2px 8px;
+  border-radius: 9999px;
+  background: rgba(0,0,0,0.04);
+  transition: background 300ms ease, transform 300ms ease;
+}
+
+.journeys .journey-row:hover .step-chip {
+  background: rgba(0,0,0,0.08);
+}
+
+.journeys .journey-row.is-active .step-chip {
+  background: rgba(0,0,0,0.12);
+  transform: translateY(-1px);
+}
+
+.journeys .shimmer-indicator {
+  width: 8px;
+  height: 8px;
+  border-radius: 9999px;
+  background: radial-gradient(circle at 30% 30%, #111 0%, #555 40%, transparent 70%);
+  opacity: 0.4;
+  transition: transform 500ms ease, opacity 500ms ease;
+}
+
+.journeys .journey-row.is-active .shimmer-indicator,
+.journeys .journey-row:hover .shimmer-indicator {
+  transform: scale(1.4);
+  opacity: 0.75;
+}
