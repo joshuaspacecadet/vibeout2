@@ -1,5 +1,5 @@
-import React, { useEffect, useMemo, useState } from 'react';
-import { BookOpen, Clock, Users, MessageSquare, FileText, ChevronRight } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { BookOpen, Clock, Users, MessageSquare, FileText } from 'lucide-react';
 
 function App() {
   const [scrollY, setScrollY] = useState(0);
@@ -92,8 +92,8 @@ function App() {
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
                 </p>
 
-                {/** Journeys: animated, interactive rows */}
-                <JourneyRows />
+                {/** Journeys: compact, non-animated list */}
+                <JourneyCompact />
               </div>
               
               {/* Right column - Animated circle */}
@@ -214,56 +214,27 @@ function App() {
 
 export default App;
 
-function JourneyRows() {
-  const items = useMemo(() => ([
-    { title: 'Build', steps: ['prototype', 'system', 'shipped'] },
-    { title: 'Create', steps: ['concepts', 'content', 'campaigns'] },
-    { title: 'Operate', steps: ['workflows', 'automation', 'scale'] },
-    { title: 'Lead', steps: ['vision', 'adoption', 'governance'] },
-    { title: 'Learn', steps: ['foundations', 'practice', 'portfolio'] },
-  ]), []);
-
-  const [activeIndex, setActiveIndex] = useState(0);
-
-  useEffect(() => {
-    const id = setInterval(() => {
-      setActiveIndex((i) => (i + 1) % items.length);
-    }, 2600);
-    return () => clearInterval(id);
-  }, [items.length]);
+function JourneyCompact() {
+  const rows = [
+    { title: 'Build', steps: 'prototype • system • shipped' },
+    { title: 'Create', steps: 'concepts • content • campaigns' },
+    { title: 'Operate', steps: 'workflows • automation • scale' },
+    { title: 'Lead', steps: 'vision • adoption • governance' },
+    { title: 'Learn', steps: 'foundations • practice • portfolio' },
+  ];
 
   return (
-    <div className="journeys space-y-4">
-      {items.map((item, index) => {
-        const isActive = index === activeIndex;
-        return (
-          <button
-            key={item.title}
-            onMouseEnter={() => setActiveIndex(index)}
-            className={`journey-row group w-full text-left rounded-xl overflow-hidden transition-all duration-500 ${isActive ? 'is-active' : ''}`}
-          >
-            <div className="flex items-center gap-4 px-5 py-4">
-              <div className="flex-1 min-w-0">
-                <div className="flex items-baseline gap-3">
-                  <h3 className="font-space-grotesk font-semibold text-lg text-black">{item.title}</h3>
-                  <div className="h-px flex-1 bg-gradient-to-r from-transparent via-black/20 to-transparent" />
-                </div>
-                <div className="mt-2 flex flex-wrap items-center gap-2 text-black/70 font-space-grotesk text-sm md:text-base">
-                  {item.steps.map((s, i) => (
-                    <span key={s} className="inline-flex items-center">
-                      <span className="step-chip">{s}</span>
-                      {i < item.steps.length - 1 && (
-                        <ChevronRight className="w-4 h-4 mx-1 opacity-60" />
-                      )}
-                    </span>
-                  ))}
-                </div>
-              </div>
-              <div className="shimmer-indicator" aria-hidden />
-            </div>
-          </button>
-        );
-      })}
-    </div>
+    <ul className="divide-y divide-black/10 rounded-lg border border-black/10">
+      {rows.map((r) => (
+        <li key={r.title} className="flex items-baseline gap-4 px-4 py-3">
+          <span className="w-24 shrink-0 font-space-grotesk font-semibold text-sm text-black">
+            {r.title}
+          </span>
+          <span className="font-space-grotesk text-sm text-black/70">
+            {r.steps}
+          </span>
+        </li>
+      ))}
+    </ul>
   );
 }
